@@ -16,30 +16,30 @@ class UserSeeder extends Seeder
     {
         //
         $users = [
-             [
-               'name' => 'admin',
-               'email' => 'admin@gmail.com',
-               'email_verified_at' => date('Y:m:d H:i:s', time() ),
-               'password' => bcrypt('12345678'),
-               'is_admin' => 1,
+            [
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'email_verified_at' => date('Y:m:d H:i:s', time()),
+                'password' => bcrypt('12345678'),
+                //    'role' => 1,
             ],
             [
-               'name' => 'mentor',
-               'email' => 'mentor@gmail.com',
-               'email_verified_at' => date('Y:m:d H:i:s', time() ),
-               'password' => bcrypt('12345678'),
-               'is_admin' => 2,
+                'name' => 'mentor',
+                'email' => 'mentor@gmail.com',
+                'email_verified_at' => date('Y:m:d H:i:s', time()),
+                'password' => bcrypt('12345678'),
+                //    'role' => 2,
             ],
-             [
-               'name' => 'user',
-               'email' => 'user@gmail.com',
-               'email_verified_at' => date('Y:m:d H:i:s', time() ),
-               'password' => bcrypt('12345678'),
-               'is_admin' => 0,
+            [
+                'name' => 'member',
+                'email' => 'user@gmail.com',
+                'email_verified_at' => date('Y:m:d H:i:s', time()),
+                'password' => bcrypt('12345678'),
+                //    'role' => 3,
             ],
-            ];
-            foreach ($users as $key=> $user){
-                User::create($user);
-            }
+        ];
+        foreach ($users as $key => $user) {
+            User::create($user);
+        }
     }
 }

@@ -19,6 +19,7 @@
                     Google
                 </a>
             </p>
+
             <img src="{{ asset('/assets/images/people.png') }}" class="people" alt="">
         </div>
     </section>

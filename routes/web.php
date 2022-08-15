@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\Menthor\MenthorController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +27,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('admin');
+Route::get('/menthor', [MenthorController::class, 'index'])->name('menthor')->middleware('menthor');
+Route::get('/member', [MemberController::class, 'index'])->name('member')->middleware('member');

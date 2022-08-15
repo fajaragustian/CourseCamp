@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CampSeeder::class,
             CampBenetfitsSeeder::class,
             UserSeeder::class,
+            RolesTableSeeder::class,
         ]);
     }
 }

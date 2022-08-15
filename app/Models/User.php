@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password',
         'avatar',
         'occupation',
-        'is_admin'
+        // 'role'
     ];
 
     /**
@@ -45,4 +45,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    // Satu User untuk satu relasi user role
+    public function userRole()
+    {
+        return $this->hasOne(UserRole::class);
+    }
 }
