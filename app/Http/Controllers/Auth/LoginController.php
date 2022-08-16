@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -39,25 +40,39 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    // public function login(Request $request)
-    // {
-    //     $input = $request->all();
-
-    //     $this->validate($request, [
-    //         'email' => 'required|email',
-    //         'password' => 'required',
-    //     ]);
-
-    //     if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
-    //         if (Auth::user()->userRole->role_id == 1) {
-    //             return redirect()->route('admin');
-    //         } else if (Auth::user()->userRole->role_id == 2) {
-    //             return redirect()->route('menthor');
-    //         } else {
-    //             return redirect()->route('member');
-    //         }
-    //     } else {
-    //         abort(403);
-    //     }
-    // }
+    public function login(Request $request)
+    {
+        $input = $request->all();
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+            if (Auth::user()->userRole->role_id == 1) {
+                return redirect()->route('admin');
+            } else if (Auth::user()->userRole->role_id == 2) {
+                return redirect()->route('menthor');
+            } else if (Auth::user()->userRole->role_id == 3) {
+                return redirect()->route('member');
+            }
+            return redirect()->route('login')->with('error', 'Error email or password');
+        }
+    }
+    public function google()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    public function handleProviderCallback()
+    {
+        $callback = Socialite::driver('google')->user();;
+        $data = [
+            'name' => $callback->getName(),
+            'email' => $callback->getEmail(),
+            'avatar' => $callback->getAvatar(),
+            'email_verified_at' => date('Y-m-d H:i:s', time()),
+        ];
+        $user = User::firstOrCreate(['email' => $data['email']], $data);
+        Auth::login($user, true);
+        return redirect(route('welcome'));
+    }
 }

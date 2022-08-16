@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Menthor\MenthorController;
+use App\Http\Controllers\Auth\LoginController as LoginController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -20,13 +21,16 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 
+// Socialite Routes Google
+Route::get('sign-in-google', [LoginController::class, 'google'])->name('user.login.google');
+Route::get('auth/google/callback', [LoginController::class, 'handleProviderCallback'])->name('user.google.callback');
 
 Auth::routes();
 
