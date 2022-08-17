@@ -11,8 +11,8 @@ class Camp extends Model
     use HasFactory, SoftDeletes;
     protected $fillable =
     [
-    'title',
-    'price'
+        'title',
+        'price',
+        'desc'
     ];
-
 }

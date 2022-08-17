@@ -19,6 +19,7 @@ class CreateCampsTable extends Migration
             $table->string('slug');
             // field price akan menyimpan file bertipe integer dan tidak mungkin kurang dari 0 untuk kedepan akan pengelohan harga
             $table->integer('price')->unsigned();
+            $table->string('desc');
             $table->timestamps();
             $table->softDeletes();
         });

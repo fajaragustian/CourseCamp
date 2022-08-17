@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserRole;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -49,11 +50,14 @@ class LoginController extends Controller
         ]);
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (Auth::user()->userRole->role_id == 1) {
-                return redirect()->route('admin');
+                return redirect()->route('admin.index');
             } else if (Auth::user()->userRole->role_id == 2) {
-                return redirect()->route('menthor');
+                return redirect()->route('menthor.index');
             } else if (Auth::user()->userRole->role_id == 3) {
-                return redirect()->route('member');
+                // Jika ingin kedalam dashboard
+                // return redirect()->route('member.index');
+                // Jika ingin kedalam homepage
+                return redirect()->route('welcome');
             }
             return redirect()->route('login')->with('error', 'Error email or password');
         }
@@ -72,6 +76,8 @@ class LoginController extends Controller
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ];
         $user = User::firstOrCreate(['email' => $data['email']], $data);
+        $role = new UserRole(['role_id' => 3]);
+        $user->userRole()->save($role);
         Auth::login($user, true);
         return redirect(route('welcome'));
     }

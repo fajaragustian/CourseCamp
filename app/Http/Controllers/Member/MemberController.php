@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\Checkout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -14,6 +16,8 @@ class MemberController extends Controller
     }
     public function index()
     {
-        return view('member.index');
+        // Mengambil data transaction camp berdasarkan user id yang login
+        $data = Checkout::with('Camp')->whereUserId(Auth::id())->get();
+        return view('member.dashboard', compact('data'));
     }
 }

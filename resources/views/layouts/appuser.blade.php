@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    @include('components.navbar')
+    @include('components.navbarhome')
     @yield('content')
     <!-- Optional JavaScript; choose one of the two! -->
     @stack('script')

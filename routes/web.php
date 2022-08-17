@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Menthor\MenthorController;
 use App\Http\Controllers\Auth\LoginController as LoginController;
+use App\Http\Controllers\Member\CheckoutController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -23,9 +24,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 
 // Socialite Routes Google
@@ -34,7 +35,27 @@ Route::get('auth/google/callback', [LoginController::class, 'handleProviderCallb
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('admin');
-Route::get('/menthor', [MenthorController::class, 'index'])->name('menthor')->middleware('menthor');
-Route::get('/member', [MemberController::class, 'index'])->name('member')->middleware('member');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Routes Admin
+Route::prefix('/admin')->name('admin.')->group(function () {
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
+    });
+});
+// Routes Menthor
+Route::prefix('/menthor')->name('menthor.')->group(function () {
+    Route::middleware(['menthor'])->group(function () {
+        Route::get('/dashboard', [MenthorController::class, 'index'])->name('index');
+    });
+});
+// Routes Member
+Route::prefix('/member')->name('member.')->group(function () {
+    Route::middleware(['member'])->group(function () {
+        Route::get('/dashboard', [MemberController::class, 'index'])->name('index');
+        // Checkout
+        Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+        Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+        Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
+    });
+});

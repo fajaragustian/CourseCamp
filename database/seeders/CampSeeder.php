@@ -24,8 +24,9 @@ class CampSeeder extends Seeder
                 // package slug Laravel
                 // 'slug' => Str::slug('Super-Learning'),
                 'price' => 280000,
-                'created_at'=>date('Y-m-d H:i:s',time()),
-                'updated_at'=>date('Y-m-d H:i:s',time()),
+                'desc' => 'Bootcamp ini akan mengajak Anda untuk belajar penuh mulai dari pengenalan dasar sampai membangun sebuah projek asli',
+                'created_at' => date('Y-m-d H:i:s', time()),
+                'updated_at' => date('Y-m-d H:i:s', time()),
             ],
             [
                 'title' => 'FastLearning',
@@ -33,8 +34,9 @@ class CampSeeder extends Seeder
                 // package slug Laravel
                 // 'slug' => Str::slug('Super-Learning'),
                 'price' => 180000,
-                'created_at'=>date('Y-m-d H:i:s',time()),
-                'updated_at'=>date('Y-m-d H:i:s',time()),
+                'desc' => 'Bootcamp ini akan mengajak Anda untuk belajar penuh mulai dari pengenalan dasar sampai membangun sebuah projek asli',
+                'created_at' => date('Y-m-d H:i:s', time()),
+                'updated_at' => date('Y-m-d H:i:s', time()),
 
             ],
             [
@@ -43,16 +45,17 @@ class CampSeeder extends Seeder
                 // package slug Laravel
                 // 'slug' => Str::slug('Super-Learning'),
                 'price' => 80000,
-                'created_at'=>date('Y-m-d H:i:s',time()),
-                'updated_at'=>date('Y-m-d H:i:s',time()),
+                'desc' => 'Bootcamp ini akan mengajak Anda untuk belajar penuh mulai dari pengenalan dasar sampai membangun sebuah projek asli',
+                'created_at' => date('Y-m-d H:i:s', time()),
+                'updated_at' => date('Y-m-d H:i:s', time()),
             ],
-            ];
-            // First Method Input Seeder $date camps as camp crate model action table databaseseeder
-            // foreach ($camps as $key=> $camp )
-            // {
-            //     Camp::create($camp);
-            // }
-            // Second Method Kekurangn pada tipe date harus di definisikan
-            Camp::insert($camps);
+        ];
+        // First Method Input Seeder $date camps as camp crate model action table databaseseeder
+        // foreach ($camps as $key=> $camp )
+        // {
+        //     Camp::create($camp);
+        // }
+        // Second Method Kekurangn pada tipe date harus di definisikan
+        Camp::insert($camps);
     }
 }
