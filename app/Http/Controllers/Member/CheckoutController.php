@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CheckoutRequest;
+use App\Mail\AfterCheckout;
 use App\Models\Camp;
 use App\Models\Checkout;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -17,6 +20,22 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function checkout(Camp $camp)
+    {
+        // //
+        // return view(
+        //     'member.cart.checkout',
+        //     [
+        //         'camp' => $camp,
+        //     ]
+        // );
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request, Camp $camp)
     {
         //
         return view(
@@ -28,29 +47,17 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Camp $camp)
-    {
-        //
-        // $camp = Camp::all();
-        // $user = Auth::id();
-        // return view(
-        //     'member.cart.checkout',
-        //     compact('camp', 'user')
-        // );
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Camp $camp)
+    public function store(CheckoutRequest $request, Camp $camp)
     {
+        if ($camp->isRegistered) {
+            $request->session()->flash('error', "Maaf, Anda Sudah Terdapat pada course {$camp->title} ini.");
+            return redirect()->route('member.index');
+        }
         $data = $request->all();
         $data['user_id'] = Auth::id();
         $data['camp_id'] = $camp->id;
@@ -62,6 +69,8 @@ class CheckoutController extends Controller
         $user->save();
         // Proses Input data Checkout
         $checkout = Checkout::create($data);
+        // sending email after checkout
+        Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
         if ($checkout) {
             //redirect dengan pesan sukses
             return redirect()->route('member.checkout.success')->with(['success' => 'Checkout Berhasil, Terima Kasih atas pembelian kelas ini !']);
@@ -118,5 +127,9 @@ class CheckoutController extends Controller
     public function success()
     {
         return view('member.cart.checkout-success');
+    }
+    public function invoice(Checkout $checkout)
+    {
+        return $checkout;
     }
 }

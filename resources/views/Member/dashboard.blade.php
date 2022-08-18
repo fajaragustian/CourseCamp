@@ -1,5 +1,5 @@
 @extends('layouts.user.app')
-@section('title','Dashboard Member Course Camp')
+@section('title', 'Dashboard Member Course Camp')
 @section('content')
 <div class="main-content">
     <section class="section">
@@ -16,6 +16,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        <div class="col-md-11 mx-auto">
+                            @include('components.alert')
+                        </div>
                         <div class="card-header">
                             <h4>Transaction Course History</h4>
                         </div>
@@ -36,15 +39,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($data as $dt )
+                                        @forelse ($data as $dt)
                                         <tr>
                                             <td></td>
                                             <td><img alt="image" src="../assets/img/avatar/avatar-5.png"
                                                     class="rounded-circle" width="35" data-toggle="tooltip"
                                                     title="Wildan Ahdian"></td>
-                                            <td>{{$dt->camp->title}}</td>
-                                            <td>${{$dt->camp->price}}</td>
-                                            <td>{{ \Carbon\Carbon::parse($dt->created_at)->formatLocalized('%d %B %Y')}}
+                                            <td>{{ $dt->camp->title }}</td>
+                                            <td>${{ $dt->camp->price }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($dt->created_at)->formatLocalized('%d %B %Y')
+                                                }}
                                             </td>
                                             <td>
                                                 @if ($dt->is_paid)
@@ -55,7 +59,7 @@
                                             </td>
                                             <td>
                                                 <a href="#" class="btn btn-primary">Detail </a>
-                                                <a href="https://wa.me/08xxxxxxxxx?text=Hi {{Auth::user()->name}}. Saya ingin konfirmasi course {{$dt->camp->title}} sudah melakukan pembayaran. Untuk teknis lanjutannya bagaimana ya kak ?"
+                                                <a href="https://wa.me/08xxxxxxxxx?text=Hi {{ Auth::user()->name }}. Saya ingin konfirmasi course {{ $dt->camp->title }} sudah melakukan pembayaran. Untuk teknis lanjutannya bagaimana ya kak ?"
                                                     class="btn btn-success">Contact Support </a>
                                             </td>
                                         </tr>

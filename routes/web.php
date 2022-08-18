@@ -53,9 +53,10 @@ Route::prefix('/menthor')->name('menthor.')->group(function () {
 Route::prefix('/member')->name('member.')->group(function () {
     Route::middleware(['member'])->group(function () {
         Route::get('/dashboard', [MemberController::class, 'index'])->name('index');
+        Route::get('/dashboard/checkout/invoice/{checkout}', [CheckoutController::class, 'invoice'])->name('checkout.invoice');
         // Checkout
         Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
-        Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+        Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout');
         Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
     });
 });
