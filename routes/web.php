@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
@@ -41,6 +42,7 @@ Auth::routes();
 Route::prefix('/admin')->name('admin.')->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
+        Route::post('/checkout/{checkout}', [AdminCheckoutController::class, 'update'])->name('checkout.update');
     });
 });
 // Routes Menthor
