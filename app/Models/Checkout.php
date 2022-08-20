@@ -12,16 +12,22 @@ class Checkout extends Model
     protected $fillable = [
         'user_id',
         'camp_id',
-        'card_number',
-        'cvc',
-        'is_paid',
-        'expired',
+        // delete data
+        // 'card_number',
+        // 'cvc',
+        // 'is_paid',
+        // 'expired,
+        // adding payment midtrans
+        'payment_status',
+        'midtrans_url',
+        'midtrans_booking_code',
+
     ];
     // Custom Attribute expired yang akan di input kedalam database
-    public function setExpiredAttribute($value)
-    {
-        $this->attributes['expired'] = date('Y-m-t', strtotime($value));
-    }
+    // public function setExpiredAttribute($value)
+    // {
+    //     $this->attributes['expired'] = date('Y-m-t', strtotime($value));
+    // }
     public function Camp()
     {
         return $this->belongsTo(Camp::class);
