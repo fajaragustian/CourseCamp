@@ -49,40 +49,26 @@
                                     readonly>
                             </div>
                             <div class="mb-4">
-                                <label for="card_number" class="form-label">Card Number</label>
-                                <input type="string" class="form-control @error('card_number') is-invalid @enderror"
-                                    id="card_number" name="card_number" placeholder="Masukan Card Number "
-                                    maxlength="12" value="{{ old('card_number') }}" required>
-                                @error('card_number')
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="string" class="form-control @error('phone') is-invalid @enderror"
+                                    id="phone" name="phone" placeholder="Masukan Card Number " maxlength="12"
+                                    value="{{ old('phone') ?: Auth::user()->phone }}" required>
+                                @error('phone')
                                 <div class="invalid-feedback mb-2">
                                     <div class="text-danger">{{ $message }}</div>
                                 </div>
                                 @enderror
                             </div>
-                            <div class="mb-5">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <label for="expired" class="form-label">Expired</label>
-                                        <input type="month" class="form-control @error('expired') is-invalid @enderror"
-                                            id="expired" name="expired" required>
-                                        @error('expired')
-                                        <div class="invalid-feedback mb-2">
-                                            <div class="text-danger">{{ $message }}</div>
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-6 col-12">
-                                        <label for="cvc" class="form-label">CVC</label>
-                                        <input type="text" class="form-control @error('cvc') is-invalid @enderror"
-                                            id=" cvc" name="cvc" placeholder="Masukan Kode CVC Card Number"
-                                            maxlength="3" value="{{ old('cvc') }}" required>
-                                        @error('cvc')
-                                        <div class="invalid-feedback mb-2">
-                                            <div class="text-danger">{{ $message }}</div>
-                                        </div>
-                                        @enderror
-                                    </div>
+                            <div class="mb-4">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="string" class="form-control @error('address') is-invalid @enderror"
+                                    id="address" name="address" placeholder="Masukan Card Number " maxlength="12"
+                                    value="{{ old('address') ?: Auth::user()->address }}" required>
+                                @error('address')
+                                <div class="invalid-feedback mb-2">
+                                    <div class="text-danger">{{ $message }}</div>
                                 </div>
+                                @enderror
                             </div>
                             <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
                             <p class="text-center subheader mt-4">

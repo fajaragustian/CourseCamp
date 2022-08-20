@@ -33,7 +33,11 @@ Route::get('/', function () {
 // Socialite Routes Google
 Route::get('sign-in-google', [LoginController::class, 'google'])->name('user.login.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleProviderCallback'])->name('user.google.callback');
-
+// Midtrans Route
+// Membutuhkan  Instant Payment seperti BCA
+Route::get('payment/success', [CheckoutController::class, 'midtransCallback']);
+// Membutuhkan  waktu validation seperti payment indomaret maka membutuhkan route post
+Route::post('payment/success', [CheckoutController::class, 'midtransCallback']);
 Auth::routes();
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');

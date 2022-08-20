@@ -22,6 +22,7 @@ class Checkout extends Model
         'midtrans_url',
         'midtrans_booking_code',
 
+
     ];
     // Custom Attribute expired yang akan di input kedalam database
     // public function setExpiredAttribute($value)

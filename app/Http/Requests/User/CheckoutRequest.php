@@ -26,10 +26,12 @@ class CheckoutRequest extends FormRequest
     {
         $expiredValidation = date('Y-m', time());
         return [
-            'card_number' => 'required|numeric|digits_between:8,16',
-            // Validasi mencocokan bulan sekarang dan bulan sebelum, sehingga jika sudah expired tidak bisa di input
-            'expired' => 'required|date|date_format:Y-m|after_or_equal:' . $expiredValidation,
-            'cvc' => 'required|numeric|digits:3',
+            // 'card_number' => 'required|numeric|digits_between:8,16',
+            // // Validasi mencocokan bulan sekarang dan bulan sebelum, sehingga jika sudah expired tidak bisa di input
+            // 'expired' => 'required|date|date_format:Y-m|after_or_equal:' . $expiredValidation,
+            // 'cvc' => 'required|numeric|digits:3',
+            'phone' => 'required|numeric|digits_between:12,13|unique:users',
+            'address' => 'required|string',
         ];
     }
 }

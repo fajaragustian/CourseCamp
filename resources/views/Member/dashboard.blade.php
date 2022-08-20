@@ -35,6 +35,7 @@
                                             <th>Price</th>
                                             <th>Date</th>
                                             <th>Status Payment</th>
+                                            <th>Payment</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -50,11 +51,11 @@
                                             <td>{{ \Carbon\Carbon::parse($dt->created_at)->formatLocalized('%d %B %Y')
                                                 }}
                                             </td>
+                                            <td> {{ $dt->payment_status }}</td>
                                             <td>
-                                                @if ($dt->is_paid)
-                                                <div class="badge badge-primary pb-2">Completed Payment</div>
-                                                @else
-                                                <div class="badge badge-success pb-2 ">Pending Payment</div>
+                                                @if ($dt->payment_status == 'waiting' )
+                                                <a href="{{$dt->midtrans_url}}" class="badge badge-primary pb-2">Paid
+                                                    Payment</a>
                                                 @endif
                                             </td>
                                             <td>
