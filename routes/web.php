@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminCheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Menthor\MenthorController;
 use App\Http\Controllers\Auth\LoginController as LoginController;
@@ -47,6 +48,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
         Route::post('/checkout/{checkout}', [AdminCheckoutController::class, 'update'])->name('checkout.update');
+        Route::resource('/discount', DiscountController::class);
     });
 });
 // Routes Menthor

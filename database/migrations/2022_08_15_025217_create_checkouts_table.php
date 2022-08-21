@@ -25,7 +25,6 @@ class CreateCheckoutsTable extends Migration
             $table->string('payment_status', 100)->default('waiting');
             $table->string('midtrans_url')->nullable();
             $table->string('midtrans_booking_code')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
         });

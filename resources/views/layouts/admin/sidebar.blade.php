@@ -10,12 +10,14 @@
             <li class="menu-header">Dashboard</li>
             <li class="active"><a class="nav-link" href="{{route('member.index')}}"><i class="fas fa-fire"></i>
                     <span>Dashboard</span></a></li>
-            @if (Auth::user()->userRole->role_id == 1)
 
+            <li class="menu-header">Starter</li>
+            @if (Auth::user()->userRole->role_id == 1)
+            <li class="active"><a class="nav-link" href="{{route('admin.discount.index')}}"><i class="fas fa-fire"></i>
+                    <span>Discount</span></a></li>
             @else
 
             @endif
-            <li class="menu-header">Starter</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Profile</span></a>

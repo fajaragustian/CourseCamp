@@ -20,10 +20,10 @@ class CheckoutController extends Controller
     // mendeskripsikan config midtrans
     public function __construct()
     {
-        Midtrans\Config::$serverKey = env('MIDTRANS_SERVERKEY');
-        Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
-        Midtrans\Config::$isSanitized = env('MIDTRANS_IS_SANITIZED');
-        Midtrans\Config::$is3ds = env('MIDTRANS_IS_3DS');
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVERKEY');
+        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
+        \Midtrans\Config::$isSanitized = env('MIDTRANS_IS_SANITIZED');
+        \Midtrans\Config::$is3ds = env('MIDTRANS_IS_3DS');
     }
 
     /**
@@ -86,7 +86,7 @@ class CheckoutController extends Controller
         $checkout = Checkout::create($data);
         $this->getSnapRedirect($checkout);
         // sending email after checkout
-        dd($checkout);
+        // dd($checkout);
         Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
         if ($checkout) {
             //redirect dengan pesan sukses
@@ -152,27 +152,27 @@ class CheckoutController extends Controller
     // snap redirect midtrans
     public function getSnapRedirect(Checkout $checkout)
     {
-        $orderId = $checkout->id . '-' . Str::random(5);
+        $orderId = 'CCamp' . $checkout->id . '-' . Str::random(5);
         $price = $checkout->Camp->price;
         $checkout->midtrans_booking_code = $orderId;
-        $item_details = [
-            "id" => $orderId,
-            "price" => $price,
-            "quantity" => 1,
-            "name" => "Payment for course {$checkout->Camp->title}",
-            // "brand" => "Course Camp",
-            // "category" => "Digital Course ",
-            // "merchant_name" => "Course Camp",
-        ];
         $transaction_details = [
             'order_id' => $orderId,
             'gross_amount' => $price,
+        ];
+        $item_details[] = [
+            "id" => $orderId,
+            "price" => $price,
+            "quantity" => 1,
+            "name" => "Payment Course {$checkout->Camp->title}",
+            "brand" => "Course Camp",
+            "category" => "Digital Course ",
+            "merchant_name" => "Course Camp",
         ];
         // adding for shipping address dan billing address
         $userData = [
             "first_name" => $checkout->User->name,
             "last_name" => "",
-            // "email" => $checkout->User->email,
+            "email" => $checkout->User->email,
             "phone" => $checkout->User->phone,
             "address" => $checkout->User->address,
             "city" => "",
