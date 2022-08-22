@@ -12,6 +12,7 @@ class Checkout extends Model
     protected $fillable = [
         'user_id',
         'camp_id',
+        'discount_id',
         // delete data
         // 'card_number',
         // 'cvc',
@@ -21,6 +22,8 @@ class Checkout extends Model
         'payment_status',
         'midtrans_url',
         'midtrans_booking_code',
+        'total',
+        'discount_percentage',
 
 
     ];
@@ -36,5 +39,9 @@ class Checkout extends Model
     public function User()
     {
         return $this->belongsTo(User::class);
+    }
+    public function Discount()
+    {
+        return $this->belongsTo(Discount::class);
     }
 }

@@ -60,6 +60,17 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
+                                <label for="discount" class="form-label">Discount Code</label>
+                                <input type="string" class="form-control @error('discount') is-invalid @enderror"
+                                    id="discount" name="discount" placeholder="Masukan Card Number " maxlength="12"
+                                    value="{{ old('discount') }}" required>
+                                @error('discount')
+                                <div class="invalid-feedback mb-2">
+                                    <div class="text-danger">{{ $message }}</div>
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
                                 <label for="address" class="form-label">Address</label>
                                 <input type="string" class="form-control @error('address') is-invalid @enderror"
                                     id="address" name="address" placeholder="Masukan Card Number " maxlength="12"

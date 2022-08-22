@@ -32,6 +32,8 @@ class CheckoutRequest extends FormRequest
             // 'cvc' => 'required|numeric|digits:3',
             'phone' => 'required|numeric|digits_between:12,13|unique:users',
             'address' => 'required|string',
+            // Exists pada table discount field code jika kode masih tersedia maka bisa terpakai namun jika delete discount maka tidak bisa
+            'discount' => 'nullable|string|exists:discounts,code,deleted_at,NULL',
         ];
     }
 }

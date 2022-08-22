@@ -47,15 +47,25 @@
                                                     class="rounded-circle" width="35" data-toggle="tooltip"
                                                     title="Wildan Ahdian"></td>
                                             <td>{{ $dt->camp->title }}</td>
-                                            <td>${{ $dt->camp->price }}</td>
+                                            <td>@currency($dt->total)
+                                                @if ($dt->discount_id)
+                                                <p class="badge badge-primary pb-2">
+                                                    {{$dt->discount_percentage}}%</p>
+                                                @endif
+                                            </td>
                                             <td>{{ \Carbon\Carbon::parse($dt->created_at)->formatLocalized('%d %B %Y')
                                                 }}
                                             </td>
                                             <td> {{ $dt->payment_status }}</td>
                                             <td>
                                                 @if ($dt->payment_status == 'waiting' )
-                                                <a href="{{$dt->midtrans_url}}" class="badge badge-primary pb-2">Paid
+                                                <a href="{{$dt->midtrans_url}}" class="badge badge-warning pb-2">Paid
                                                     Payment</a>
+                                                @elseif($dt->payment_status == 'pending')
+                                                <a href="{{$dt->midtrans_url}}"
+                                                    class=" badge badge-warning pb-2">Pending Payment</a>
+                                                @elseif ($dt->payment_status == 'paid')
+                                                <a class=" badge badge-primary pb-2 text-white">Success Payment</a>
                                                 @endif
                                             </td>
                                             <td>
