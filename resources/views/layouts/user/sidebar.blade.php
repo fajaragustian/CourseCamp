@@ -15,8 +15,8 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Profile</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="layout-default.html">Edit Profile</a></li>
-                    <li><a class="nav-link" href="layout-transparent.html">Change Password</a></li>
+                    <li><a class="nav-link" href="{{route('member.profile')}}">Edit Profile</a></li>
+                    <li><a class="nav-link" href="{{route('member.password')}}">Change Password</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">

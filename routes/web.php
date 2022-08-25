@@ -66,5 +66,11 @@ Route::prefix('/member')->name('member.')->group(function () {
         Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
         Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout');
         Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
+        // Update [Profile]
+        Route::get('/profile', [MemberController::class, 'profile'])->name('profile');
+        Route::post('/profile', [MemberController::class, 'profileUpdate'])->name('profile.update');
+        // Update password
+        Route::get('/chagepassword', [MemberController::class, 'changePassword'])->name('password');
+        Route::post('/chagepassword', [MemberController::class, 'changePasswordUpdate'])->name('password.update');
     });
 });

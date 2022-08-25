@@ -48,9 +48,10 @@ class LoginController extends Controller
         $input = $request->all();
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ]);
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+            $request->session()->regenerate();
             if (Auth::user()->userRole->role_id == 1) {
                 return redirect()->route('admin.index');
             } else if (Auth::user()->userRole->role_id == 2) {
@@ -61,7 +62,9 @@ class LoginController extends Controller
                 // Jika ingin kedalam homepage
                 return redirect()->route('welcome');
             }
-            return redirect()->route('login')->with('error', 'Error email or password');
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
         }
     }
     public function google()

@@ -17,6 +17,7 @@
                 </div>
                 <hr>
                 <div class="card-body">
+                    @include('components.alert')
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="row mb-3">
