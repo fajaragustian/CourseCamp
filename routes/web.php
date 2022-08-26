@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminCheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminControlUserController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Menthor\MenthorController;
@@ -49,6 +50,14 @@ Route::prefix('/admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
         Route::post('/checkout/{checkout}', [AdminCheckoutController::class, 'update'])->name('checkout.update');
         Route::resource('/discount', DiscountController::class);
+        // Manajement User
+        Route::resource('/controluser', AdminControlUserController::class);
+        // Update [Profile]
+        Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+        Route::post('/profile', [AdminController::class, 'profileUpdate'])->name('profile.update');
+        // Update password
+        Route::get('/chagepassword', [AdminController::class, 'geChangePassword'])->name('getpassword');
+        Route::post('/chagepassword', [AdminController::class, 'postChangePasswordUpdate'])->name('postpassword.update');
     });
 });
 // Routes Menthor
@@ -66,10 +75,11 @@ Route::prefix('/member')->name('member.')->group(function () {
         Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
         Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout');
         Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
-        // Update [Profile]
+
+        // Update Profile
         Route::get('/profile', [MemberController::class, 'profile'])->name('profile');
         Route::post('/profile', [MemberController::class, 'profileUpdate'])->name('profile.update');
-        // Update password
+        // Update Password
         Route::get('/chagepassword', [MemberController::class, 'changePassword'])->name('password');
         Route::post('/chagepassword', [MemberController::class, 'changePasswordUpdate'])->name('password.update');
     });

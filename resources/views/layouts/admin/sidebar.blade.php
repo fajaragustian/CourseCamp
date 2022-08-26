@@ -8,7 +8,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="active"><a class="nav-link" href="{{route('member.index')}}"><i class="fas fa-fire"></i>
+            <li class="active"><a class="nav-link" href="{{route('admin.index')}}"><i class="fas fa-fire"></i>
                     <span>Dashboard</span></a></li>
 
             <li class="menu-header">Starter</li>
@@ -22,8 +22,16 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Profile</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="layout-default.html">Edit Profile</a></li>
-                    <li><a class="nav-link" href="layout-transparent.html">Change Password</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.profile')}}">Edit Profile</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.getpassword')}}">Change Password</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Manajement User</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('admin.controluser.index')}}"> User</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.getpassword')}}">Add Role</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
