@@ -50,7 +50,7 @@ class CheckoutController extends Controller
      */
     public function create(Request $request, Camp $camp)
     {
-        //
+        // menggunakan IsRegisteren
         if ($camp->isRegistered) {
             $request->session()->flash('error', "Maaf, Anda Sudah Terdapat pada course {$camp->title} ini.");
             return redirect()->route('member.index');
@@ -163,10 +163,11 @@ class CheckoutController extends Controller
         $orderId = $checkout->id . '-' . Str::random(5);
         $price = $checkout->Camp->price;
         $checkout->midtrans_booking_code = $orderId;
+        $total_course = $checkout->total_course;
         $item_details[] = [
             "id" => $orderId,
             "price" => $price,
-            "quantity" => 1,
+            "quantity" => $total_course,
             "name" => "Payment Course {$checkout->Camp->title}",
             "brand" => "Course Camp",
             "category" => "Digital Course ",
@@ -178,17 +179,18 @@ class CheckoutController extends Controller
             $item_details[] = [
                 "id" => $checkout->Discount->code,
                 "price" => -$discountPrice,
-                "quantity" => 1,
+                "quantity" => $total_course,
                 "name" => "Payment Discount {$checkout->Discount->name} ({$checkout->discount_percentage})",
                 "brand" => "Course Camp",
                 "category" => "Digital Course ",
                 "merchant_name" => "Course Camp",
             ];
         }
-        $total = $price - $discountPrice;
+        $total = $total_course * $price;
+        $sum = $total - $discountPrice;
         $transaction_details = [
             'order_id' => $orderId,
-            'gross_amount' => $total,
+            'gross_amount' => $sum,
         ];
         // adding for shipping address dan billing address
         $userData = [
@@ -220,7 +222,7 @@ class CheckoutController extends Controller
             // Get Snap Payment Page URL
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $checkout->midtrans_url = $paymentUrl;
-            $checkout->total = $total;
+            $checkout->total = $sum;
             $checkout->save();
             //
             return $paymentUrl;

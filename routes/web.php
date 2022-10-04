@@ -10,7 +10,9 @@ use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Menthor\MenthorController;
 use App\Http\Controllers\Auth\LoginController as LoginController;
 use App\Http\Controllers\Member\CheckoutController;
+use App\Http\Controllers\Member\TransactionController;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +77,8 @@ Route::prefix('/member')->name('member.')->group(function () {
         Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
         Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout');
         Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
-
+        // Transaction History
+        Route::resource('/transaction', TransactionController::class);
         // Update Profile
         Route::get('/profile', [MemberController::class, 'profile'])->name('profile');
         Route::post('/profile', [MemberController::class, 'profileUpdate'])->name('profile.update');

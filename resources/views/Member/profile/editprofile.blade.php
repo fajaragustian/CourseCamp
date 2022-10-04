@@ -24,7 +24,7 @@
                     <div class="card profile-widget">
                         <div class="profile-widget-header">
                             @if (Auth::user()->avatar != null)
-                            <img src="{{ URL::to('/'. Auth::user()->avatar) }}"
+                            <img src="{{ asset('/'. Auth::user()->avatar) }}"
                                 class="rounded-circle profile-widget-picture" alt="" srcset="">
                             @else
                             {{-- <img src="{{ asset('/storage/profile/avatar.png') }}" --}} <img

@@ -19,6 +19,7 @@ class Checkout extends Model
         // 'is_paid',
         // 'expired,
         // adding payment midtrans
+        'total_course',
         'payment_status',
         'midtrans_url',
         'midtrans_booking_code',

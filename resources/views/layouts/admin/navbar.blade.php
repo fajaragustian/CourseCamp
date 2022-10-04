@@ -15,8 +15,8 @@
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 @if (Auth::user()->avatar != null)
-                <img src="{{ Auth::user()->avatar }}" class="rounded-circle mr-1 img-fluid img-thumbnail user-photo"
-                    alt="" srcset="">
+                <img src="{{ asset('/'. Auth::user()->avatar) }}"
+                    class="rounded-circle mr-1 img-fluid img-thumbnail user-photo" alt="" srcset="">
                 @else
                 {{-- <img src="{{ asset('/storage/profile/avatar.png') }}" --}} <img
                     src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}"

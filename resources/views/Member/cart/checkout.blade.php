@@ -52,7 +52,7 @@
                                 <label for="phone" class="form-label">Phone</label>
                                 <input type="string" class="form-control @error('phone') is-invalid @enderror"
                                     id="phone" name="phone" placeholder="Masukan Card Number " maxlength="12"
-                                    value="{{ old('phone') ?: Auth::user()->phone }}" required>
+                                    value="{{ old('phone') ?: Auth::user()->phone }}">
                                 @error('phone')
                                 <div class="invalid-feedback mb-2">
                                     <div class="text-danger">{{ $message }}</div>
@@ -62,8 +62,8 @@
                             <div class="mb-4">
                                 <label for="discount" class="form-label">Discount Code</label>
                                 <input type="string" class="form-control @error('discount') is-invalid @enderror"
-                                    id="discount" name="discount" placeholder="Masukan Card Number " maxlength="12"
-                                    value="{{ old('discount') }}" required>
+                                    id="discount" name="discount" placeholder="Masukan Discount" maxlength="12"
+                                    value="{{ old('discount') }}">
                                 @error('discount')
                                 <div class="invalid-feedback mb-2">
                                     <div class="text-danger">{{ $message }}</div>
@@ -80,6 +80,10 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 </div>
                                 @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label for="total_course" class="form-label">total_course</label>
+                                <input type="number" class="form-control" id="total_course" name="total_course">
                             </div>
                             <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
                             <p class="text-center subheader mt-4">

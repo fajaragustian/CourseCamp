@@ -22,7 +22,7 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Transaction</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="bootstrap-alert.html">Transaction History</a></li>
+                    <li><a class="nav-link" href="{{route('member.transaction.index')}}">Transaction History</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">

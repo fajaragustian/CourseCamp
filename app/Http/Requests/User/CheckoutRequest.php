@@ -30,7 +30,7 @@ class CheckoutRequest extends FormRequest
             // // Validasi mencocokan bulan sekarang dan bulan sebelum, sehingga jika sudah expired tidak bisa di input
             // 'expired' => 'required|date|date_format:Y-m|after_or_equal:' . $expiredValidation,
             // 'cvc' => 'required|numeric|digits:3',
-            'phone' => 'required|numeric|digits_between:12,13|unique:users',
+            'phone' => 'nullable|numeric|digits_between:12,13',
             'address' => 'required|string',
             // Exists pada table discount field code jika kode masih tersedia maka bisa terpakai namun jika delete discount maka tidak bisa
             'discount' => 'nullable|string|exists:discounts,code,deleted_at,NULL',

@@ -26,26 +26,25 @@
                             <div class="table-responsive">
                                 <table class="table table-striped" id="table-1">
                                     <thead>
-                                        <tr>
-                                            <th class="text-center">
+                                        <tr class="justify-content-center">
+                                            <th>
                                                 #
                                             </th>
-                                            <th>Menthor</th>
                                             <th>Course Name</th>
                                             <th>Price</th>
                                             <th>Date</th>
                                             <th>Status Payment</th>
                                             <th>Payment</th>
-                                            <th>Action</th>
+                                            <th colspan="2">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($data as $dt)
                                         <tr>
                                             <td></td>
-                                            <td><img alt="image" src="../assets/img/avatar/avatar-5.png"
+                                            {{-- <td><img alt="image" src="../assets/img/avatar/avatar-5.png"
                                                     class="rounded-circle" width="35" data-toggle="tooltip"
-                                                    title="Wildan Ahdian"></td>
+                                                    title="Wildan Ahdian"></td> --}}
                                             <td>{{ $dt->camp->title }}</td>
                                             <td>@currency($dt->total)
                                                 @if ($dt->discount_id)
@@ -56,22 +55,27 @@
                                             <td>{{ \Carbon\Carbon::parse($dt->created_at)->formatLocalized('%d %B %Y')
                                                 }}
                                             </td>
-                                            <td> {{ $dt->payment_status }}</td>
+                                            <td>
+                                                <a class="badge badge-primary pb-2 text-white text-capitalize "> {{
+                                                    $dt->payment_status }} </a>
+                                            </td>
                                             <td>
                                                 @if ($dt->payment_status == 'waiting' )
-                                                <a href="{{$dt->midtrans_url}}" class="badge badge-warning pb-2">Paid
+                                                <a href="{{$dt->midtrans_url}}"
+                                                    class="badge badge-primary pb-2 text-capitalize">Paid
                                                     Payment</a>
                                                 @elseif($dt->payment_status == 'pending')
                                                 <a href="{{$dt->midtrans_url}}"
-                                                    class=" badge badge-warning pb-2">Pending Payment</a>
+                                                    class=" badge badge-warning pb-2 text-capitalize">Pending
+                                                    Payment</a>
                                                 @elseif ($dt->payment_status == 'paid')
-                                                <a class=" badge badge-primary pb-2 text-white">Success Payment</a>
+                                                <a class=" badge badge-primary pb-2 text-white text-capitalize">Success
+                                                    Payment</a>
                                                 @endif
                                             </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary">Detail </a>
+                                            <td colspan="2">
                                                 <a href="https://wa.me/08xxxxxxxxx?text=Hi {{ Auth::user()->name }}. Saya ingin konfirmasi course {{ $dt->camp->title }} sudah melakukan pembayaran. Untuk teknis lanjutannya bagaimana ya kak ?"
-                                                    class="btn btn-success">Contact Support </a>
+                                                    class="btn btn-success  w-100">ContactCS</a>
                                             </td>
                                         </tr>
                                         @empty

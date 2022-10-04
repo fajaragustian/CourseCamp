@@ -24,6 +24,7 @@ class CreateCheckoutsTable extends Migration
             // Adding Midtrans Tabel Midtrans
             $table->string('payment_status', 100)->default('waiting');
             $table->string('midtrans_url')->nullable();
+            $table->unsignedBigInteger('total_course')->nullable();
             $table->string('midtrans_booking_code')->nullable();
             $table->timestamps();
             $table->softDeletes();
